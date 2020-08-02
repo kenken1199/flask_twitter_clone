@@ -21,7 +21,7 @@ class Tweet(db.Model):
 
     @classmethod
     def delta_time(cls, tweet_posted):
-        now = datetime.datetime.now()
+        now = datetime.now()
         td = now - tweet_posted
         days = td.days
         hours = td.seconds//3600
