@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="main">
+    <section class="col-1">
+        {% if session.logged_in %}
+        <h1><a href="/">Home</a></h1>
+        <h1>話題を検索</h1>
+        <h1>通知</h1>
+        <h1>メッセージ</h1>
+        <h1>ブックマーク</h1>
+        <h1>リスト</h1>
+        <h1><a href="{{ url_for('users.all_users') }}">{{ session.name }}</a></li></h1>
+        {% endif %}
+        {% if not session.logged_in %}
+        {% block signin_form %}{% endblock signin_form %}
+        {% else %}
+        <h1 role="presentation"><a href="{{ url_for('users.logout') }}">Signout</a></h1>
+        {% endif %}
+    </section>
+    <section class="col-2">
+        <div class="top">
+            <h1>最新ツイート</h1>
+        </div>
+        <div class="tweet">
+            <form action="{{ url_for('tweets.post_tweet') }}" method="post">
+                {{ form.csrf_token }}
+                <div class="input-group">
+                {{ form.tweet(placeholder="いまどうしてる？", class="form-control") }}
+                {% if form.tweet.errors %}
+                <span class="error">
+                    {% for error in form.tweet.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </span>
+                {% endif %}
+                <span class="input-group-btn">
+                    <input class="button" type="submit" value="ツイートする">
+                </span>
+                </div>
+            </form>
+        </div>
+        <div class="timeline">
+            {% for tweet in all_tweets %}
+                {% if tweet.poster.name == session.name %}
+                <div class="one-tweet">
+                    <h4>{{ tweet.poster.name }}
+                        <small>{{ tweet.delta_time(tweet.posted) }} <a class="btn btn-default btn-xs" href="{{ url_for('tweets.delete_tweet', tweet_id=tweet.tweet_id )}}">Delete</a></small></h4>
+                    {{ tweet.tweet }}
+                </div>
+                    {% else %}
+                <div class="one-tweet">
+                    <h4>{{ tweet.poster.name }}
+                        <small>{{ tweet.delta_time(tweet.posted) }} <a class="btn btn-info btn-xs" href="{{ url_for('tweets.unfollow_user', user_id=tweet.poster.id )}}">Unfollow</a></small></h4>
+                    {{ tweet.tweet }}
+                </div>
+                    {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    <section class="col-3">
+        <h1>キーワード検索</h1>
+        <h1>いまどうしてる</h1>
+        <h1>おすすめユーザー</h1>
+    </section>
+</div>  
+{% endblock content %}

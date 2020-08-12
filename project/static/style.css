@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+.main section {
+    margin: 10px;
+    background: white;
+    padding: 15px;
+  }
+  .main h1 {
+    color: black;
+    font-size: 1.5rem;
+  }
+  .main p {
+    margin-top: 10px;
+  }
+
+  .main {
+    display: flex;
+    max-width: 1375px;
+    margin: 0 auto;
+    justify-content:space-around;
+  }
+  .main .top {
+    border: 1px solid;
+    height: 70px;
+    /* border-bottom: none; */
+  }
+  .main section {
+    flex: 1;
+  }
+  .main .col-2 {
+    flex: 2;
+  }
+
+  /* .main .tweet {
+    border: 1px solid;
+  }
+
+  .main .timeline {
+    border: 1px solid;
+  } */
+  .one-tweet {
+    border: 1px solid;
+  }
+
+  .main .col-1 {
+    border: 1px solid;
+  }
+
+  .main .col-2 {
+    border: 1px solid;
+  }
+
+  .main .col-3 {
+    border: 1px solid;
+  }
+
+  .alert .alert-success .error {
+      width: auto;
+      text-align: center;
+  }
+
+  .form-control {
+    width: 607.5px;
+    height: 77.81px;
+  }
+
+  .main .input-group {
+    border: 1px solid;
+  }
+
+  .main .tweet {
+    position: relative;
+  }
+
+  .button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100px;
+    height: 37px;
+    background-color: rgb(29, 161, 242);
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+  }

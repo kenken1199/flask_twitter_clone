@@ -3,41 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title>twitter clone</title>
+    <link rel=stylesheet href="{{ url_for('static', filename='style.css')}}">
   </head>
-
   <body>
-   <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-          {% if session.logged_in %}
-          <li><a href="/">Home</a></li>
-          <li><a href="/tweets/">Tweets</a></li>
-          <li><a href="{{ url_for('users.all_users') }}">{{ session.name }}</a></li>
-          {% endif %}
           {% if not session.logged_in %}
           {% block signin_form %}{% endblock signin_form %}
-          {% else %}
-          <li role="presentation"><a href="{{ url_for('users.logout') }}">Signout</a></li>
           {% endif %}
-          </ul>
-        </nav>
-        <h3 class="text-muted"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>  tweepy!</h3>
-      </div>
       {% for message in get_flashed_messages() %}
-      <div class="alert alert-success">{{ message }}</div>
+      <h4 class="alert alert-success">{{ message }}</h4>
       {% endfor %}
       {% if error %}
-      <div class="error">
+      <h4 class="error">
           <strong>Error:</strong>{{ error }}
-      </div>
+      </h4>
       {% endif %}
       {% block content %}
       {% endblock content %}
       <footer class="footer">
-        <p>Made with <span class="glyphicon glyphicon-heart" style="color:#c7254e" aria-hidden="true"></span></p>
       </footer>
-
-    </div> 
   </body>
 </html>

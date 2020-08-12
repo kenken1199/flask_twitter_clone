@@ -42,7 +42,7 @@ def filtered_tweets(user_id):
 @login_required
 def tweet():
     return render_template(
-        'tweets.html',
+        'tweets2.html',
         form=PostTweetForm(),
         all_tweets=filtered_tweets(session['user_id']),
     )
