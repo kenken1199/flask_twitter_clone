@@ -68,12 +68,9 @@
     border: 1px solid;
   }
 
-  .main .tweet {
-    position: relative;
-  }
-
   .button {
-    position: absolute;
+    display: block;
+    margin: 0 0 0 auto;
     right: 0;
     bottom: 0;
     width: 100px;
