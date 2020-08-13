@@ -4,13 +4,13 @@
 <div class="main">
     <section class="col-1">
         {% if session.logged_in %}
-        <h1><a href="/">Home</a></h1>
+        <h1><a href="/tweets/">Home</a></h1>
         <h1>話題を検索</h1>
         <h1>通知</h1>
         <h1>メッセージ</h1>
         <h1>ブックマーク</h1>
         <h1>リスト</h1>
-        <h1><a href="{{ url_for('users.all_users') }}">{{ session.name }}</a></li></h1>
+        <h1><a href="{{ url_for('users.accounts') }}">アカウント</a></li></h1>
         {% endif %}
         {% if not session.logged_in %}
         {% block signin_form %}{% endblock signin_form %}
@@ -61,7 +61,7 @@
     <section class="col-3">
         <h1>キーワード検索</h1>
         <h1>いまどうしてる</h1>
-        <h1>おすすめユーザー</h1>
+        <h1><a href="{{ url_for('users.all_users') }}">全てのユーザー</a></h1>
     </section>
 </div>  
 {% endblock content %}

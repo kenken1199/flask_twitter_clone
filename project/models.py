@@ -43,13 +43,15 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
+    image_file =  db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String, nullable=False)
     tweets = db.relationship('Tweet', backref='poster')
     role = db.Column(db.String, default='user')
 
-    def __init__(self, name=None, email=None, password=None, role=None):
+    def __init__(self, name=None, email=None,  password=None, image_file=None, role=None):
         self.name = name
         self.email = email
+        self.image_file = image_file
         self.password = password
         self.role = role
 
