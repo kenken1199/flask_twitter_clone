@@ -34,7 +34,6 @@ def logout():
     session.pop('user_id', None)
     session.pop('name', None)
     session.pop('role', None)
-    flash('You have been logged out')
     return redirect(url_for('users.login'))
 
 @users_blueprint.route('/', methods=['GET', 'POST'])
@@ -52,11 +51,9 @@ def login():
                     session['image_file'] = user.image_file
                     session['name'] = user.name
                     session['role'] = user.role
-                    flash('Welcome')
                     return redirect(url_for('tweets.tweet'))
             else:
                 error = 'Invalid username or password.'
-    flash('sex')
     return render_template('index.html', form=form, error=error)
 
 @users_blueprint.route('/register/', methods=['GET', 'POST'])
@@ -75,7 +72,6 @@ def register():
             try:
                 db.session.add(new_user)
                 db.session.commit()
-                flash('Thanks for registering. Plese login.')
                 return redirect(url_for('users.login'))
             except IntegrityError:
                 error = 'That username and/or email already exists.'
@@ -111,13 +107,14 @@ def accounts():
                 username = session['name']
                 email = session['user_email'] 
                 image_file = url_for('static', filename='profile_pics/' + user.image_file)
-                session['image_file'] = image_file
+                session['image_file'] = user.image_file
                 flash('アカウントが更新されました')
                 return render_template('account.html', form=form, username=username, 
                 image_file=image_file, email=email )
             except IntegrityError:
                 error = 'That username and/or email already exists.'
-                image_file = session['image_file']
+                image_file_from_session = session['image_file']
+                image_file = url_for('static', filename='profile_pics/' + image_file_from_session)
                 return render_template('account.html', form=form, error=error, username=username, 
                 image_file=image_file, email=email )
     userid = session['user_id']

@@ -1,23 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="main">
-    <section class="col-1">
-        {% if session.logged_in %}
-        <h1><a href="/tweets/">Home</a></h1>
-        <h1>話題を検索</h1>
-        <h1>通知</h1>
-        <h1>メッセージ</h1>
-        <h1>ブックマーク</h1>
-        <h1>リスト</h1>
-        <h1><a href="{{ url_for('users.accounts') }}">アカウント</a></li></h1>
-        {% endif %}
-        {% if not session.logged_in %}
-        {% block signin_form %}{% endblock signin_form %}
-        {% else %}
-        <h1 role="presentation"><a href="{{ url_for('users.logout') }}">Signout</a></h1>
-        {% endif %}
-    </section>
     <section class="col-2">
         <div class="top">
             <h1>最新ツイート</h1>
@@ -44,24 +27,38 @@
             {% for tweet in all_tweets %}
                 {% if tweet.poster.name == session.name %}
                 <div class="one-tweet">
-                    <h4>{{ tweet.poster.name }}
-                        <small>{{ tweet.delta_time(tweet.posted) }} <a class="btn btn-default btn-xs" href="{{ url_for('tweets.delete_tweet', tweet_id=tweet.tweet_id )}}">Delete</a></small></h4>
-                    {{ tweet.tweet }}
+                    <img class="article-img" src="{{ url_for('static', filename='profile_pics/' + tweet.poster.image_file) }}">
+                    <div class="tweet-name">
+                        {{ tweet.poster.name }}
+                    </div>
+                    <div class="tweet-time">
+                        {{ tweet.delta_time(tweet.posted) }}
+                    </div>
+                    <div class="tweet-del">
+                        <a class="btn btn-default btn-xs" href="{{ url_for('tweets.delete_tweet', tweet_id=tweet.tweet_id )}}">Delete</a>
+                    </div>
+                    <div class="tweet-body">
+                        {{ tweet.tweet }}
+                    </div>
                 </div>
                     {% else %}
                 <div class="one-tweet">
-                    <h4>{{ tweet.poster.name }}
-                        <small>{{ tweet.delta_time(tweet.posted) }} <a class="btn btn-info btn-xs" href="{{ url_for('tweets.unfollow_user', user_id=tweet.poster.id )}}">Unfollow</a></small></h4>
-                    {{ tweet.tweet }}
+                    <img class="article-img" src="{{ url_for('static', filename='profile_pics/' + tweet.poster.image_file) }}">
+                    <div class="tweet-name">
+                        {{ tweet.poster.name }}
+                    </div>
+                    <div class="tweet-time">
+                        {{ tweet.delta_time(tweet.posted) }}
+                    </div>
+                    <div class="tweet-del">
+                        <a class="btn btn-info btn-xs" href="{{ url_for('tweets.unfollow_user', user_id=tweet.poster.id )}}">Unfollow</a>
+                    </div>
+                    <div class="tweet-body">
+                        {{ tweet.tweet }}
+                    </div>
                 </div>
                     {% endif %}
             {% endfor %}
         </div>
-    </section>
-    <section class="col-3">
-        <h1>キーワード検索</h1>
-        <h1>いまどうしてる</h1>
-        <h1><a href="{{ url_for('users.all_users') }}">全てのユーザー</a></h1>
-    </section>
-</div>  
+        </section>
 {% endblock content %}

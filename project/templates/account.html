@@ -1,32 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="main">
-    <section class="col-1">
-        {% if session.logged_in %}
-        <h1><a href="/tweets/">Home</a></h1>
-        <h1>話題を検索</h1>
-        <h1>通知</h1>
-        <h1>メッセージ</h1>
-        <h1>ブックマーク</h1>
-        <h1>リスト</h1>
-        <h1><a href="{{ url_for('users.accounts') }}">アカウント</a></li></h1>
-        {% endif %}
-        {% if not session.logged_in %}
-        {% block signin_form %}{% endblock signin_form %}
-        {% else %}
-        <h1 role="presentation"><a href="{{ url_for('users.logout') }}">Signout</a></h1>
-        {% endif %}
-    </section>
     <section class="col-2">
-        <img class="rounded-circle account-img" src="{{ image_file }}">
-          <h2 class="account-heading">{{ username }}</h2>
-          <p class="text-secondary">{{ email }}</p>
-
-        <form action="/account/" method="post" enctype="multipart/form-data">
+        <div class="account">
+            <img class="rounded-circle account-img" src="{{ image_file }}">
+            <div class="name">
+                <h2 class="account-heading">{{ username }}</h2>
+                <p class="text-secondary">{{ email }}</p>
+            </div>
+        <form class="account-form" action="/account/" method="post" enctype="multipart/form-data">
             {{ form.csrf_token }}
                 <legend class="border-bottom mb-4">Account Info</legend>
-                <div>
+                <div class="account-name">
+                    {{ form.name.label()}}
+                    <br>
                     {{ form.name(placeholder= username ) }}
                 {% if form.name.errors %}
                 <span class="error">
@@ -36,7 +23,9 @@
                 </span>
                 {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="account-name">
+                    {{ form.email.label()}}
+                    <br>
                     {{ form.email(placeholder= email ) }}
                     {% if form.email.errors %}
                     <span class="error">
@@ -46,8 +35,9 @@
                     </span>
                     {% endif %}
                 </div>
-                    <div class="form-group">
+                    <div class="account-name">
                         {{ form.picture.label() }}
+                        <br>
                         {{ form.picture }}
                         {% if form.picture.errors %}
                             {% for error in form.picture.errors %}
@@ -55,15 +45,10 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-            <span class="input-group-btn">
-                <input class="btn btn-default" type="submit" value="Submit">
+            <span class="account-button">
+                <input class="update-button" type="submit" value="Update">
             </span>
         </form>
-    </section>
-    <section class="col-3">
-        <h1>キーワード検索</h1>
-        <h1>いまどうしてる</h1>
-        <h1><a href="{{ url_for('users.all_users') }}">全てのユーザー</a></h1>
-    </section>
-</div>  
+        </div>
+    </section> 
 {% endblock content %}

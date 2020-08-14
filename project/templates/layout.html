@@ -6,9 +6,6 @@
     <link rel=stylesheet href="{{ url_for('static', filename='style.css')}}">
   </head>
   <body>
-          {% if not session.logged_in %}
-          {% block signin_form %}{% endblock signin_form %}
-          {% endif %}
       {% for message in get_flashed_messages() %}
       <h4 class="alert alert-success">{{ message }}</h4>
       {% endfor %}
@@ -17,8 +14,30 @@
           <strong>Error:</strong>{{ error }}
       </h4>
       {% endif %}
+      <div class="main">
+        <section class="col-1">
+            {% if session.logged_in %}
+            <h1><a href="/tweets/">Home</a></h1>
+            <h1>話題を検索</h1>
+            <h1>通知</h1>
+            <h1>メッセージ</h1>
+            <h1>ブックマーク</h1>
+            <h1>リスト</h1>
+            <h1><a href="{{ url_for('users.accounts') }}">アカウント</a></li></h1>
+            {% endif %}
+            {% if not session.logged_in %}
+            {% else %}
+            <h1 role="presentation"><a href="{{ url_for('users.logout') }}">Signout</a></h1>
+            {% endif %}
+        </section>
       {% block content %}
       {% endblock content %}
+      <section class="col-3">
+        <h1>キーワード検索</h1>
+        <h1>いまどうしてる</h1>
+        <h1><a href="{{ url_for('users.all_users') }}">全てのユーザー</a></h1>
+      </section>
+      </div>
       <footer class="footer">
       </footer>
   </body>

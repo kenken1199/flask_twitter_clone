@@ -64,7 +64,7 @@ def post_tweet():
             flash('New tweet has been posted.')
             return redirect(url_for('tweets.tweet'))
     return render_template(
-        'tweets.html',
+        'tweets2.html',
         form=form,
         error=error,
         all_tweets=filtered_tweets(session['user_id']),

@@ -1,73 +1,63 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>twitter clone</title>
+    <link rel=stylesheet href="{{ url_for('static', filename='style.css')}}">
+  </head>
+  <body>
+    <div class="lmain">
+        <section class="column lcol-1">
+            <h3 class="first">あなたの「好き」をフォローしましょう。</h3>
+            <h3>話題のトピックを追いかけましょう。</h3>
+            <h3>会話に参加しましょう。</h3>
+        </section>
+        <section class="column lcol-2">
+            <form class="form-inline" role="form" action="/" method="post">
+                {{ form.csrf_token }}
+                <div class="linput1">
+                    {{ form.name.label()}}
+                    <br>
+                        {{ form.name }}
+                    <br>
+                        {% if form.name.errors %}
+                        <span class="error">
+                        {% for error in form.name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                        </span>
+                        {% endif %}
+                </div>
+                <div class="linput2">
+                    {{ form.password.label()}}
+                    <br>
+                        {{ form.password }}
+                        <br>
+                        {% if form.password.errors %}
+                        <span class="error">
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                        </span>
+                        {% endif %}
+                </div>
+                <button class="login-button" type="submit">ログイン</button>
+                </form>
+                <div class="lregister">
+                    <h1 class="first">「いま」起きていることを見つけよう</h1>
+                    <h4>Twitterをはじめよう</h4>
+                <div class="lregister">
+                    {% if not session.logged_in %}
+                    <p><a class="button2" href="/register/" role="button">アカウント作成</a></p>
+                    {% endif %}
+                </div>
+                </div>
 
-{% block signin_form %}
-<form class="form-inline" role="form" action="/" method="post">
-    {{ form.csrf_token }}
-    <div class="form-group">
-            {{ form.name(placeholder="Name") }}
-            {% if form.name.errors %}
-            <span class="error">
-            {% for error in form.name.errors %}
-                {{ error}}
-            {% endfor %}
-            </span>
-            {% endif %}
+        </section>
+        
     </div>
-    <div class="form-group">
-            {{ form.password(placeholder="Password") }}
-            {% if form.password.errors %}
-            <span class="error">
-            {% for error in form.password.errors %}
-                {{ error }}
-            {% endfor %}
-            </span>
-            {% endif %}
-    </div>
-    <button class="btn btn-sm btn-primary" type="submit">Sign in</button>
-    </form>
-{% endblock signin_form %}
-
-{% block content %}
-      <div class="jumbotron">
-        <h1>tweepy</h1>
-        <p class="lead">twitter clone built on flask - a python micro framework</p>
-        {% if not session.logged_in %}
-        <p><a class="btn btn-lg btn-success" href="/register/" role="button">Sign up today</a></p>
-        {% endif %}
-      </div>
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Stack</h4>
-          <h5>Backend</h5>
-          <ul>
-              <li><a href="https://docs.python.org/2/">Python 2.7</a></li>
-              <li>build using <a href="http://flask.pocoo.org">Flask</a> framework</li>
-              <li>deployed on <a href="https://heroku.com">Heroku</a></li>
-              <li>uses <a href="https://www.postgresql.org/">Postgres</a> as database</li>
-          </ul>
-          <h5>Frontend</h5>
-          <ul>
-              <li>uses <a href="https://getbootstrap.com">Bootstrap 3</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-6">
-            <h4>Installation</h4>
-            <p>Process of installation is easy. This project uses pip-tools to effectively keep track of requirements.</p>
-            <ul>
-                <li>make a virtualenv
-                    <code>virtualenv venv</code>
-                </li>
-                <li>activate the virtualenv -
-                    <code>source venv/bin/activate</code>
-                </li>
-                <li>install pip-tools -
-                    <code>pip install pip-tools</code>
-                </li>
-                <li>be in sync with requirements using pip-sync -
-                    <code>pip-sync requrements.txt</code>
-                </li>
-            </ul>
-        </div>
-      </div>
-{% endblock content %}
+            <footer class="footer">
+                © 2020 Kenta Nakamori
+            </footer>
+</body>
+</html>
