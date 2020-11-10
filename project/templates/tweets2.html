@@ -30,6 +30,7 @@
                     <img class="article-img" src="{{ url_for('static', filename='profile_pics/' + tweet.poster.image_file) }}">
                     <div class="tweet-name">
                         {{ tweet.poster.name }}
+                        {{ tweet.poster.email}}
                     </div>
                     <div class="tweet-time">
                         {{ tweet.delta_time(tweet.posted) }}
@@ -46,6 +47,7 @@
                     <img class="article-img" src="{{ url_for('static', filename='profile_pics/' + tweet.poster.image_file) }}">
                     <div class="tweet-name">
                         {{ tweet.poster.name }}
+                        {{ tweet.poster.email}}
                     </div>
                     <div class="tweet-time">
                         {{ tweet.delta_time(tweet.posted) }}
