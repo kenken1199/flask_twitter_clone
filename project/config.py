@@ -1,4 +1,4 @@
-SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db' or 'postgresql://postgres:postgres@localhost:5432/flask_twitter'
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/flask_twitter'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 DEBUG = True
 SECRET_KEY = 'secret key'
