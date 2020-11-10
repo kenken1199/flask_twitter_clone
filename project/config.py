@@ -1,4 +1,6 @@
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/flask_twitter'
+import os
+
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 DEBUG = True
 SECRET_KEY = 'secret key'
