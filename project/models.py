@@ -44,7 +44,7 @@ class User(db.Model):
     name = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     image_file =  db.Column(db.String(20), nullable=False, default='default.jpg')
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.Binary(60), nullable=False)
     tweets = db.relationship('Tweet', backref='poster')
     role = db.Column(db.String, default='user')
 
